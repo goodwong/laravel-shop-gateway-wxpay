@@ -1,11 +1,11 @@
 <?php
 
-namespace Goodwong\LaravelShopGatewayWxpay;
+namespace Goodwong\ShopGatewayWxpay;
 
 use Illuminate\Http\Request;
-use Goodwong\LaravelShop\Entities\Order;
+use Goodwong\Shop\Entities\Order;
 use EasyWeChat\Payment\Order as PaymentOrder;
-use Goodwong\LaravelShop\Gateways\GatewayBase;
+use Goodwong\Shop\Gateways\GatewayBase;
 
 abstract class GatewayWxpay extends GatewayBase
 {
@@ -26,23 +26,25 @@ abstract class GatewayWxpay extends GatewayBase
      * called on charge
      * 
      * @param  \Goodwong\LaravelShop\Entities\Order  $order
-     * @param  string  $brief
-     * @param  integer  $amount
+     * @param  int  $amount
+     * @param  array  $params
      * @return void
      *
      * e.g.
-     * public function onCharge(Order $order, $brief, $amount)
+     * public function onCharge(Order $order, int $amount, array $params = [])
      * {
-     *     $openid = \Goodwong\LaravelWechat\Entities\WechatUser::where('user_id', $order->user_id)->pluck('openid')->first();
+     *     if (!isset($params['openid'])) {
+     *         throw new \Exception('openid不可为空');
+     *     }
      *     $serial_number = $this->getSerialNumber($order);
      *     $attributes = [
      *         'trade_type'       => 'JSAPI', // JSAPI，NATIVE，APP...
-     *         'body'             => $brief,
+     *         'body'             => $params['title'] ?? "支付订单#{$order->id}",,
      *         // 'detail'           => 'iPad mini 16G 白色',
      *         'out_trade_no'     => $serial_number,
      *         'total_fee'        => $amount, // 单位：分
      *         'notify_url'       => $this->getCallbackUrl(), // 支付结果通知网址，如果不设置则会使用配置里的默认地址
-     *         'openid'           => $openid, // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
+     *         'openid'           => $params['openid'], // trade_type=JSAPI，此参数必传，用户在商户appid下的唯一标识，
      *         // ...
      *     ];
      *     $payOrder = new PaymentOrder($attributes);
@@ -56,7 +58,6 @@ abstract class GatewayWxpay extends GatewayBase
      *     }
      * }
      */
-    // abstract public function onCharge(Order $order, $brief);
 
     /**
      * called on callback

@@ -1,0 +1,20 @@
+{
+    "name": "goodwong/laravel-shop-gateway-wxpay",
+    "description": "Laravel Shop 微信支付网管",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "william",
+            "email": "goodwong@foxmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Goodwong\\ShopGatewayWxpay\\": "src/"
+        }
+    }
+}
