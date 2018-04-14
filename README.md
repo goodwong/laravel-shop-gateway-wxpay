@@ -1,6 +1,6 @@
 # laravel-shop-gateway-wxpay
 
-为`goodwong/laravel-shop`写得微信支付网关
+为 [goodwong/laravel-shop](https://github.com/goodwong/laravel-shop) 写得微信支付网关
 
 ## 功能
 目前提供两种支付方式：
